@@ -18,30 +18,34 @@
 Правда есть сомнения, что эту клетку нельзя обойти с соседней клетки...
 """
 import time
-
 from routins import sum_in_coordinates, sum_digits
 
-counter = 0     # подсчитываем клетки в переменную counter
-start_x = 0     # Подразумевается 1000, компенсируем в условии, не 25 а 23
-start_y = 0     # Подразумевается 1000, компенсируем в условии, не 25 а 23
 
-time_start = time.time()
-x = start_x
-while sum_digits(x) <= 23:
-    column_counter = 0
-    y = start_y
-    summ = sum_in_coordinates(x, y)
-    while summ <= 23:
-        # print('\tклетка ({}, {}), sum={}'.format(x, y, summ))
-        y += 1
-        column_counter += 1
+def main():
+    counter = 0  # подсчитываем клетки в переменную counter
+    start_x = 0  # Подразумевается 1000, компенсируем в условии, не 25 а 23
+    start_y = 0  # Подразумевается 1000, компенсируем в условии, не 25 а 23
+
+    time_start = time.time()
+    x = start_x
+    while sum_digits(x) <= 23:
+        column_counter = 0
+        y = start_y
         summ = sum_in_coordinates(x, y)
+        while summ <= 23:
+            # print('\tклетка ({}, {}), sum={}'.format(x, y, summ))
+            y += 1
+            column_counter += 1
+            summ = sum_in_coordinates(x, y)
 
-    # print('столбец {}, column_counter={}'.format(x, column_counter))
-    x += 1
-    counter += column_counter
+        # print('столбец {}, column_counter={}'.format(x, column_counter))
+        x += 1
+        counter += column_counter
 
-time_end = time.time()
-print(f'Правый верхний квадрат содержит {counter} клеток удовлетворяющих нашему условию')
-print('Время выполнения:', time_end - time_start)
+    time_end = time.time()
+    print(f'Правый верхний квадрат содержит {counter} клеток удовлетворяющих нашему условию')
+    print('Время выполнения:', time_end - time_start)
 
+
+if __name__ == '__main__':
+    main()

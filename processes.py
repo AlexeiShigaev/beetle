@@ -23,7 +23,7 @@ def calc_sum_process(tasks: multiprocessing.Queue, results: multiprocessing.Queu
 
 def main():
     # таблица результатов обхода клеток
-    res = np.full((1000, 1000), '-')
+    res = np.full((SIZE, SIZE), '-')
     # Очередь на расчет суммы цифр
     tasks_queue = multiprocessing.Queue()
     # Очередь рассчитанных клеток
@@ -40,13 +40,13 @@ def main():
 
     tasks_queue.put((0, 0))
     [p.start() for p in processes]
-    new_task_index = 0
 
     exit_counter = 0
-    while exit_counter < 100000:
+    while exit_counter < 10000:
         if results_queue.empty() and tasks_queue.empty():
             exit_counter += 1
 
+        print("results_queue: {}, tasks_queue: {}".format(results_queue.qsize(), tasks_queue.qsize()))
         while results_queue.qsize():
             coord_x, coord_y, summ = results_queue.get()
             res[coord_x][coord_y] = 'N'
